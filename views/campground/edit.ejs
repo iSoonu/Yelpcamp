@@ -1,0 +1,63 @@
+<% layout('layouts/boilerplate') %>
+
+  <div class="row">
+    <h1 class="text-center">Edit Campground</h1>
+    <div class="col-md-6 offset-md-3">
+      <form action="/campgrounds/<%= editCampId._id %>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label class="form-label" for="title">title</label>
+          <input class="form-control" type="text" id="title" name="campground[title]" value="<%= editCampId.title %>"
+            required />
+          <div class="valid-feedback">Looks Good!</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="location">Location</label>
+          <input class="form-control" type="text" id="location" name="campground[location]"
+            value="<%= editCampId.location %>" required />
+          <div class="valid-feedback">Looks Good!</div>
+        </div>
+
+
+        <div class="mb-3">
+          <label class="form-label" for="price">Campground Price</label>
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">$</span>
+            <input type="text" class="form-control" id="price-label" placeholder="0.00" aria-label="price"
+              aria-describedby="price-label" name="campground[price]" value="<%= editCampId.price %>" required />
+            <div class="valid-feedback">Looks Good!</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="description">Description</label>
+          <textarea class="form-control" type="text" id="description" name="campground[description]"
+            required><%= editCampId.description %></textarea>
+          <div class="valid-feedback">Looks Good!</div>
+        </div>
+
+        <div class="input-group mb-3">
+          <input type="file" class="form-control" id="inputGroupFile04" name="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload" multiple>
+          <!-- <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Button</button> -->
+        </div>
+
+        <div class="mb-3">
+          <% editCampId.images.forEach((img,index) => { %>
+            <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="">
+            <div class="form-check-inline">
+              <input type="checkbox" id="image-<%= index %>" name="deleteImages[]" value="<%= img.filename %>">
+            </div>
+            <label for="image-<%= index %>">Delete</label><br>
+            <% }) %>
+        </div>
+
+        <div class="mb-3">
+          <button class="btn btn-info">Update Campground</button>
+        </div>
+
+        <div>
+          <a href="/campgrounds/<%= editCampId._id %>">Back To Campground</a>
+        </div>
+      </form>
+    </div>
+  </div>
